@@ -2,12 +2,12 @@ import React from 'react';
 import { FaEye } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const CoffeeCard = ({ coffee }) => {
     const { _id, name, quantity, supplier, taste, category, details, photo } = coffee;
     const handleDelete = (_id) => {
-        console.log(_id);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -21,7 +21,7 @@ const CoffeeCard = ({ coffee }) => {
                 console.log('Delete Confirmed');
 
                 fetch(`http://localhost:5000/coffee/${_id}`, {
-                    method:'DELETE'
+                    method: 'DELETE'
                 })
                     .then(res => res.json())
                     .then(data => {
@@ -57,7 +57,9 @@ const CoffeeCard = ({ coffee }) => {
                     <div className="card-actions justify-end">
                         <div className="join join-vertical gap-2">
                             <button className="rounded-lg p-3 bg-[#D2B48C] flex justify-center items-center join-item"><FaEye /></button>
-                            <button className="rounded-lg p-3 bg-[#3C393B] flex justify-center items-center join-item text-white"><FaRegEdit /></button>
+                            <Link to={`/updateCoffee/${_id}`}>
+                                <button className="rounded-lg p-3 bg-[#3C393B] flex justify-center items-center join-item text-white"><FaRegEdit /></button>
+                            </Link>
                             <button
                                 onClick={() => handleDelete(_id)}
                                 className="rounded-lg p-3 bg-[#EA4744] flex justify-center items-center join-item text-lg"><MdDelete /></button>

@@ -43,6 +43,7 @@ const AddCoffee = () => {
     return (
         <div className='flex justify-center items-center mt-10 '>
             <div className="card bg-[#F4F3F0] w-full max-w-2xl shrink-0 shadow-2xl">
+            <h2 className='text-3xl font-semibold text-center mt-5'>Add Your Coffee Today</h2>
                 <form onSubmit={handleAddCoffee} className="card-body">
                     <div className='grid grid-cols-2 gap-3'>
                         {/* name */}
