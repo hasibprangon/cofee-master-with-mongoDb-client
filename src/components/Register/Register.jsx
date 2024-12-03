@@ -18,7 +18,7 @@ const Register = () => {
                 const newUser = {name, email, createdAt}
                 console.log(result.user);
                 // save new users info to db
-                fetch('http://localhost:5000/users', {
+                fetch('https://coffee-store-server-87ppp4pp1-hasib1510s-projects.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
