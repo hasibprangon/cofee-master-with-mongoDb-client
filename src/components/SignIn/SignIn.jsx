@@ -1,22 +1,45 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProviders/AuthProviders';
+import Swal from 'sweetalert2';
 
 const SignIn = () => {
 
-    const {createUser} = useContext(AuthContext);
+    const { createUser } = useContext(AuthContext);
 
     const handleSignUp = e => {
         e.preventDefault();
         const form = e.target;
+        const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
         createUser(email, password)
-        .then(result => {
-            console.log(result.user);
-        })
-        .catch(err => {
-            console.log(err.message);
-        })
+            .then(result => {
+                const createdAt = result.user.metadata.creationTime;
+                const newUser = {name, email, createdAt}
+                console.log(result.user);
+                // save new users info to db
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(newUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.insertedId){
+                            Swal.fire({
+                                title: 'Successful!',
+                                text: 'Successfully added to db',
+                                icon: 'success',
+                                confirmButtonText: 'Cool'
+                              })  
+                        }
+                    })
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
     }
     return (
         <div className="hero bg-base-200 min-h-screen">
@@ -30,6 +53,12 @@ const SignIn = () => {
                 </div>
                 <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                     <form onSubmit={handleSignUp} className="card-body">
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input type="text" placeholder="Name" name='name' className="input input-bordered" required />
+                        </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
