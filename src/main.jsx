@@ -9,6 +9,7 @@ import Default from './components/Default/Default.jsx'
 import Register from './components/Register/Register.jsx'
 import AuthProviders from './Providers/AuthProviders/AuthProviders.jsx'
 import Users from './components/Users/Users.jsx'
+import SignIn from './components/SignIn/SignIn.jsx'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register></Register>
+      },
+      {
+        path:'/signIn',
+        element:<SignIn></SignIn>
       },
       {
         path: '/users',
