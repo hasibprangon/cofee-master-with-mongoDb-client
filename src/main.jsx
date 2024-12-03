@@ -6,9 +6,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import AddCoffee from './components/AddCoffee/AddCoffee.jsx'
 import UpdateCoffee from './components/UpdateCoffee/UpdateCoffee.jsx'
 import Default from './components/Default/Default.jsx'
-import SignIn from './components/SignIn/SignIn.jsx'
 import Register from './components/Register/Register.jsx'
 import AuthProviders from './Providers/AuthProviders/AuthProviders.jsx'
+import Users from './components/Users/Users.jsx'
 
 const router = createBrowserRouter([
   {
@@ -30,12 +30,13 @@ const router = createBrowserRouter([
         loader: ({ params }) => fetch(`http://localhost:5000/coffee/${params.id}`)
       },
       {
-        path: '/signIn',
-        element: <SignIn></SignIn>
-      },
-      {
         path: '/register',
         element: <Register></Register>
+      },
+      {
+        path: '/users',
+        element: <Users></Users>,
+        loader: () => fetch('http://localhost:5000/users')
       }
     ]
   }
